@@ -1,7 +1,7 @@
 {
   "name": "react-waterfall-redux-devtools-middleware",
   "description": "An integration between react-waterfall and redux-devtools-extension for action monitoring and time travel",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "main": "dist/index.js",
   "repository": "https://github.com/elisherer/react-waterfall-redux-devtools-middleware.git",
   "author": "Eli Sherer <eli.sherer@gmail.com>",
@@ -12,7 +12,7 @@
   },
   "peerDependencies": {
     "react": "^16.3.0",
-    "react-waterfall": "^3.0.0"
+    "react-waterfall": "^3.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0-beta.40",

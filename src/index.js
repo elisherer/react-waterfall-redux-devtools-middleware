@@ -44,17 +44,14 @@ const reduxDevTools = ({ instanceId = 1, maxAge = 50 } = {}) => !extension ? noE
           return;
         }
         case 'ACTION': {
-          if (actions) {
-            const expression = payload.replace('this.', '').split('(');
-            if (typeof actions[expression[0]] === 'function') {
-              const args = expression[1] ? expression[1].slice(0, -1).split(',') : [];
-              actions[expression[0]](...args);
-              return;
-            }
-            console.warn(`${toolName} The ACTION '${payload}' was not recognized.`);
+          const expression = payload.replace('this.', '').split('(');
+          if (typeof actions[expression[0]] === 'function') {
+            const args = expression[1] ? expression[1].slice(0, -1).split(',') : [];
+            actions[expression[0]](...args);
             return;
           }
-          break;
+          console.warn(`${toolName} The ACTION '${payload}' was not recognized.`);
+          return;
         }
         case 'DISPATCH': {
           switch (payload.type) {
@@ -85,9 +82,9 @@ const reduxDevTools = ({ instanceId = 1, maxAge = 50 } = {}) => !extension ? noE
 
     let actionId = 0;
     const getNextActionId = () => ++actionId;
-    const mockReduxDevToolsAction = (type, payload) => {
+    const mockReduxDevToolsAction = (type, args, payload) => {
       if (!mwState.started) {
-        mwState.queuedActions.push([type, payload]);
+        mwState.queuedActions.push([type, args, payload]);
         return;
       }
       window.postMessage({
@@ -95,7 +92,8 @@ const reduxDevTools = ({ instanceId = 1, maxAge = 50 } = {}) => !extension ? noE
         action: JSON.stringify({
           type: "PERFORM_ACTION",
           action: {
-            type
+            type,
+            args
           },
           timestamp: Date.now()
         }),
@@ -115,8 +113,8 @@ const reduxDevTools = ({ instanceId = 1, maxAge = 50 } = {}) => !extension ? noE
     }, '*');
     mockReduxDevToolsAction('@@INIT', store.initialState);
 
-    return action => {
-      mockReduxDevToolsAction(action, JSON.stringify(self.state));
+    return (action, args) => {
+      mockReduxDevToolsAction(action, args, JSON.stringify(self.state));
     };
   };
 
