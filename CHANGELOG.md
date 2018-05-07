@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [3.0.2] - 2018-05-07
+- Remove assumption about document existance (#1)
+
 ## [3.0.1] - 2018-03-31
 - Add actions arguments to the log (as `action.args`)
 - Depend (peer) on react-waterfall 3.0.1 making dispatcher be always supported

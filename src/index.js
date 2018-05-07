@@ -4,8 +4,15 @@ const DEBUG = false;
 const extension = typeof window !== 'undefined' && (window.__REDUX_DEVTOOLS_EXTENSION__ || window.devToolsExtension);
 const pageSource = '@devtools-page';
 const extensionSource = '@devtools-extension';
+const getName = () => {
+  let title = '[react-waterfall]';
+  if (typeof document !== 'undefined') {
+    title += ' ' + document.title;
+  }
+  return title;
+};
 const libConfig = {
-  name: '[react-waterfall] ' + document.title,
+  name: getName(),
   features: {
     jump: true,
     skip: false,
