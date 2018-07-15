@@ -2,6 +2,11 @@
 # react-waterfall-redux-devtools-middleware
 An integration between react-waterfall and redux-devtools-extension for action monitoring and time travel
 
+```diff
+- THIS IS FOR REACT-WATERFALL v3 ONLY
+- v4 HAS IT OUT OF THE BOX
+```
+
 ![screenshot](screenshot.gif)
 
 ## Example
